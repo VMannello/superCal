@@ -14,8 +14,11 @@
    <meta property="og:title" content="superCal" />
    <meta property="og:type" content="website" />
    <meta property="og:site_name" content="superCal" />
+   <link rel="stylesheet" type="text/css" href="js/slick/slick.css"/>
    <script src="js/moment-with-locales.min.js"></script>
    <script src="js/jquery-2.1.4.min.js"></script>
+   <script src="js/slick/slick.min.js"></script>
+
    <style>
       * {
          margin: 0;
@@ -25,19 +28,32 @@
       body {
          font: 1em/1.4 Verdana, Arial, Helvetica, sans-serif;
          background: #ABABAB;
+         text-align: center;
+         width: 100%;
+         height: 100%;
       }
       
       body * {
          display: inline;
       }
+
+      div.container {
+         margin: 5px auto;
+         display: block;
+         height: 36em;
+         width: 90em;
+      }
       
+      div.calContainer {
+         display:inline-block;
+      }
+
       ol.calendar {
-         width: 52em;
-         margin: 0 auto;
-         display: inline-block;
-         min-height: 200px;
-         background: #CCCCCC;
-         padding: 12px 0 0 20px;
+         width: 44.8em;
+         margin: 0 ;
+         display: block;
+         padding: 0;
+         text-align: left;
       }
       
       li {
@@ -51,9 +67,9 @@
       
       h1 {
          display: block;
-         width: 200px;
-         height: 76px;
-         margin: 15px auto;
+         text-align: center;
+         width: 100%;
+         margin: 5px auto;
          color: #fff;
       }
       /* * Day styles * */
@@ -62,11 +78,11 @@
          width: 6em;
          height: 6em;
          float: left;
-         margin: .2em;
-         padding: .2em;
+         margin: .1em;
+         padding: .1em;
          overflow: auto;
-         border: 1px solid #000;
-         border-radius: .1em;
+         background: #fff;
+         border-radius: .25em;
       }
       /* * Day content (UL/OL & P) * */
       
@@ -87,7 +103,7 @@
          width: auto;
          background: none;
          margin: 0;
-         padding: .2em 0;
+         padding: .1em 0;
          float: none;
       }
       /* * Holiday class * */
@@ -97,7 +113,7 @@
       
       li.lastmonth li,
       li.nextmonth li {
-         background: #fff;
+         background: #ccc;
       }
    </style>
 
@@ -111,33 +127,52 @@
    	 this.prevVis = Number(monthMoment.format('e'));
    	 this.nextVis = 7 - Number(moment(monthMoment).add(1,'M').format('e'));
    	 this.name = monthMoment.format('MMMM');
-   	 this.prevEnd = Number(moment(monthMoment).subtract(1,'M').format('e'));
+   	 this.prevEnd = Number(moment(monthMoment).subtract(1,'M').daysInMonth());
    };
    
    //build a month
 
-   function buildIt(container,index) {
-   	  var theMonth = new Month(moment(index));
-   	  console.log(theMonth);
-   	  $('<h1></h1>').text(theMonth.name).appendTo(container);
-   	  $('<ol></ol>').addClass('calendar').appendTo(container);
-   	   $(container + ' > ol').add('li').addClass('lastmonth').add('ol');
-   	   for (i = 0; (i+1) < theMonth.prevVis; i++) {
-   	    $(container + '.lastmonth > ol').add('li').text(theMonth.prevEnd - i);
-   	   }
-   	   $(container + ' > ol').add('li').addClass('thismonth').add('ol');
-   	    $(container + '.thismonth > ol').add('li').text(i);
-   	    for (i = 1; i < theMonth.dayCount; i++) {
-   	     $(container + '.thismonth > ol').add('li').text(i);
-   	   }
-   	   $(container + ' > ol').add('li').addClass('nextmonth').add('ol');
-   	    for (i = 1; i < theMonth.nextVis; i++) {
-   	     $(container + '.thismonth > ol').add('li').text(i);
-   	   }
+   function buildIt(aMoment) {
+   	  var theMonth = new Month(aMoment);
+        container = $('<div class="calContainer"><h1>'+theMonth.name+'</h1><ol class="calendar"> <li class="lastmonth"><ol></ol></li> <li class="thismonth"><ol></ol></li> <li class="nextmonth"><ol></ol></li> </ol></div>');
+   	   for (i = 0; (i+1) <= theMonth.prevVis; i++) {
+          $('.lastmonth > ol', container).prepend('<li data-date="'+moment(theMonth.monthMoment).subtract(1, 'M').add((theMonth.prevEnd - (i+1)),'d').format('DD-MM-YYYY')+'">'+(theMonth.prevEnd - i)+'</li>');
+   	  }
+         for (i = 1; i <= theMonth.dayCount; i++) {
+          $(' .thismonth > ol', container).append('<li data-date="'+moment(theMonth.monthMoment).add((i-1),'d').format('DD-MM-YYYY')+'">'+i+'</li>');
+        }
 
+        if (theMonth.nextVis < 7) {
+            for (i = 1; i <= theMonth.nextVis; i++) {
+             $(' .nextmonth > ol', container).append('<li data-date="'+moment(theMonth.monthMoment).add(1,'M').add((i-1),'d').format('DD-MM-YYYY')+'">'+i+'</li>');
+           }
+        }
+        return container;
    }
 
-   buildIt("#left", ['07-2016','MM-YYYY']);
+   $(function() {
+
+      thisMonth = moment().format('MM-YYYY');
+      
+      $('.container').append(buildIt('02-2016', 'MM-YYYY'));
+      $('.container').append(buildIt('03-2016', 'MM-YYYY'));
+      $('.container').append(buildIt('04-2016', 'MM-YYYY'));
+      $('.container').append(buildIt('05-2016', 'MM-YYYY'));
+
+   $('.container').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+      console.log(currentSlide, nextSlide);
+       //if going to the right add last child remove first child
+       $('.container').slick( 'slickAdd' , buildIt( moment('05-2016','MM-YYYY').add(1,'M').format('MM-YYYY') , 'MM-YYYY') );
+       //if going to the left add first child remove last child
+   });
+
+      $('.container').slick({
+         infinite: false,
+         slidesToShow: 2,
+         slidesToScroll: 1,
+         initialSlide: 1
+      });
+    });
 
    </script>
 
@@ -145,7 +180,7 @@
 
 <body>
 
-<div id="left">
+<div class="container">
 </div>
 
 </body>
