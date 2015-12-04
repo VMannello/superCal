@@ -15,96 +15,108 @@
    <meta property="og:type" content="website" />
    <meta property="og:site_name" content="superCal" />
    <link rel="stylesheet" type="text/css" href="js/slick/slick.css"/>
+   <link rel="stylesheet" type="text/css" href="js/slick/slick-theme.css"/>
    <script src="js/moment-with-locales.min.js"></script>
    <script src="js/jquery-2.1.4.min.js"></script>
    <script src="js/slick/slick.min.js"></script>
-
+   <script src='fonts/icomatic.js'></script>
+   <script>
+      window.onload = function() { IcomaticUtils.run(); }
+      </script>
+   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,400italic,300italic,100italic' rel='stylesheet' type='text/css'>
+   <link href='fonts/icomatic.css' rel='stylesheet' type='text/css'>
    <style>
       * {
-         margin: 0;
-         padding: 0;
+          margin: 0;
+          padding: 0;
       }
-      
       body {
-         font: 1em/1.4 Verdana, Arial, Helvetica, sans-serif;
-         background: #ABABAB;
-         text-align: center;
-         width: 100%;
-         height: 100%;
+          font: .85em/1.4 'Lato', sans-serif;
+          font-family: 'Lato', sans-serif;
+          background: #4A4D4E;
+          text-align: center;
+          width: 100%;
+          height: 100%;
       }
-      
       body * {
-         display: inline;
+          display: inline;
       }
-
+      div.controlPanel {
+          margin: 5px;
+          display: block;
+      }
       div.container {
-         margin: 5px auto;
-         display: block;
-         height: 36em;
-         width: 90em;
+          margin: 5px auto;
+          display: block;
+          height: 36em;
+          width: 92em;
       }
-      
       div.calContainer {
-         display:inline-block;
+          display: inline-block;
       }
-
       ol.calendar {
-         width: 44.8em;
-         margin: 0 ;
-         display: block;
-         padding: 0;
-         text-align: left;
+          width: 46em;
+          margin: 0;
+          display: block;
+          padding: 0;
+          text-align: left;
       }
-      
       li {
-         list-style: none;
+          list-style: none;
       }
-      
       p.link {
-         text-align: center;
-         display: block;
+          text-align: center;
+          display: block;
       }
-      
       h1 {
-         display: block;
-         text-align: center;
-         width: 100%;
-         margin: 5px auto;
-         color: #fff;
+          display: block;
+          text-align: center;
+          width: 100%;
+          margin: 5px auto;
+          color: #F0F1F1;
+          font: 2.25em/1 'Lato', sans-serif;
+          font-weight: 100;
+      }
+      h2 {
+          display: block;
+          text-align: center;
+          width: 100%;
+          margin: 5px auto;
+          color: #F0F1F1;
+          font: .65em/1 'Lato', sans-serif;
+          font-weight: 100;
       }
       /* * Day styles * */
       
       li li {
-         width: 6em;
-         height: 6em;
-         float: left;
-         margin: .1em;
-         padding: .1em;
-         overflow: auto;
-         background: #fff;
-         border-radius: .25em;
+          width: 6em;
+          height: 6em;
+          float: left;
+          margin: .1em;
+          padding: .1em;
+          overflow: auto;
+          background: #fff;
+          border-radius: .25em;
+          border: 1px solid #bbb;
       }
       /* * Day content (UL/OL & P) * */
       
       li li p {
-         font-size: .7em;
-         display: block;
+          font-size: .7em;
+          display: block;
       }
-      
       li li ol {
-         width: auto;
+          width: auto;
       }
-      
       li li ul li,
       li li ol li {
-         font-size: .7em;
-         display: block;
-         height: auto;
-         width: auto;
-         background: none;
-         margin: 0;
-         padding: .1em 0;
-         float: none;
+          font-size: .3em;
+          display: block;
+          height: auto;
+          width: auto;
+          background: none;
+          margin: 0;
+          float: none;
       }
       /* * Holiday class * */
       
@@ -113,72 +125,301 @@
       
       li.lastmonth li,
       li.nextmonth li {
-         background: #ccc;
+          background: #ccc;
       }
+      /* * Slick Custom * */
+      
+      .slick-slide {
+          outline: none
+      }
+      /* * Control Panel * */
+      
+      .topcoat-list {
+          width: 16em;
+          display: block;
+          border: 1px solid #333434;
+          background-color: #454646;
+          border-radius: .35em;
+          text-align: left;
+      }
+      .topcoat-list__header {
+          display: block;
+          padding: 4px 5px 4px 10px;
+          font-size: 0.9em;
+          font-weight: 600;
+          background-color: #3f4041;
+          color: #c6c8c8;
+          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
+      }
+      .topcoat-list__container {
+          max-height: 11.25em;
+          overflow: scroll;
+          display: block;
+          border-top: 1px solid #333434;
+          color: #c6c8c8;
+      }
+      .topcoat-list__item {
+          font-family: 'Lato', sans-serif;
+          font-weight: 200;
+          display: block;
+          padding: 0px 5px 0px 10px;
+          line-height: 1.25em;
+          border-top: 1px solid #616363;
+          border-bottom: 1px solid #333434;
+      }
+      .topcoat-list__item:first-child {
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .topcoat-list__item:last-child {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          border-bottom-right-radius: .35em;
+          border-bottom-left-radius: .35em;
+      }
+
+      .topcoat-checkbox__checkmark {
+          height: 1em;
+      }
+      input[type="checkbox"] {
+          height: 1em;
+          width: 1em;
+          margin-top: 0;
+          margin-left: 0;
+      }
+      input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
+          opacity: 1;
+      }
+      .topcoat-checkbox {
+          line-height: 1em;
+      }
+      .topcoat-checkbox__checkmark:before {
+          width: 1em;
+          height: 1em;
+          background: #595b5b;
+          border: 1px solid #333434;
+          border-radius: 3px;
+          box-shadow: inset 0 1px #737373;
+      }
+      .topcoat-checkbox__checkmark {
+          width: 1rem;
+          height: 1rem;
+      }
+      .topcoat-checkbox__checkmark:after {
+          top: 2px;
+          left: 1px;
+          opacity: 0;
+          width: 14px;
+          height: 4px;
+          background: transparent;
+          border: 7px solid #c6c8c8;
+          border-width: 3px;
+          border-top: none;
+          border-right: none;
+          border-radius: 1px;
+          -webkit-transform: rotate(-50deg);
+          -ms-transform: rotate(-50deg);
+          transform: rotate(-50deg);
+      }
+      input[type="checkbox"]:focus + .topcoat-checkbox__checkmark:before {
+          border: 1px solid #0036ff;
+          box-shadow: inset 0 1px rgba(255, 255, 255, 0.36), 0 0 0 2px #6fb5f1;
+      }
+      input[type="checkbox"]:active + .topcoat-checkbox__checkmark:before {
+          border: 1px solid #333434;
+          background-color: #3f4041;
+          box-shadow: inset 0 1px rgba(0, 0, 0, 0.05);
+      }
+      input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
+          border: 1px solid #333434;
+          background: #595b5b;
+          box-shadow: inset 0 1px #737373;
+      }
+
+      .list-tools {
+         clear: both;
+         float:right;
+         font-weight: normal;
+      }
+
+      a.icon {
+         color: #c6c8c8;
+         text-decoration: none;
+         transition:.25s;
+      }
+
+      a.icon:hover {
+         color: #ffffff;
+      }
+    
    </style>
 
    <script>
    function Month(monthMoment) {
-   	 this.monthMoment = monthMoment;
-   	 //What day of the week the month starts on
-   	 this.firstDayOfWeek = Number(monthMoment.format('e'));
-   	 //Days in the month
-   	 this.dayCount = monthMoment.daysInMonth();
-   	 this.prevVis = Number(monthMoment.format('e'));
-   	 this.nextVis = 7 - Number(moment(monthMoment).add(1,'M').format('e'));
-   	 this.name = monthMoment.format('MMMM');
-   	 this.prevEnd = Number(moment(monthMoment).subtract(1,'M').daysInMonth());
+      this.monthMoment = monthMoment;
+      //What day of the week the month starts on
+      this.firstDayOfWeek = Number(monthMoment.format('e'));
+      //Days in the month
+      this.dayCount = monthMoment.daysInMonth();
+      this.prevVis = Number(monthMoment.format('e'));
+      this.nextVis = 7 - Number(moment(monthMoment).add(1, 'M').format('e'));
+      this.monthName = monthMoment.format('MMMM');
+      this.monthYear = monthMoment.format('YYYY');
+      this.prevEnd = Number(moment(monthMoment).subtract(1, 'M').daysInMonth());
    };
-   
+
    //build a month
 
    function buildIt(aMoment) {
-   	  var theMonth = new Month(aMoment);
-        container = $('<div class="calContainer"><h1>'+theMonth.name+'</h1><ol class="calendar"> <li class="lastmonth"><ol></ol></li> <li class="thismonth"><ol></ol></li> <li class="nextmonth"><ol></ol></li> </ol></div>');
-   	   for (i = 0; (i+1) <= theMonth.prevVis; i++) {
-          $('.lastmonth > ol', container).prepend('<li data-date="'+moment(theMonth.monthMoment).subtract(1, 'M').add((theMonth.prevEnd - (i+1)),'d').format('DD-MM-YYYY')+'">'+(theMonth.prevEnd - i)+'</li>');
-   	  }
-         for (i = 1; i <= theMonth.dayCount; i++) {
-          $(' .thismonth > ol', container).append('<li data-date="'+moment(theMonth.monthMoment).add((i-1),'d').format('DD-MM-YYYY')+'">'+i+'</li>');
-        }
+      var theMonth = new Month(aMoment);
+      container = $('<div class="calContainer" data-themonth="' + theMonth.monthMoment.format("MM-YYYY") + '"><h1>' + theMonth.monthName + '</h1><h2>'+ theMonth.monthYear +'</h2><ol class="calendar"> <li class="lastmonth"><ol></ol></li> <li class="thismonth"><ol></ol></li> <li class="nextmonth"><ol></ol></li> </ol></div>');
+      for (i = 0;
+         (i + 1) <= theMonth.prevVis; i++) {
+         $('.lastmonth > ol', container).prepend('<li data-theday="' + moment(theMonth.monthMoment).subtract(1, 'M').add((theMonth.prevEnd - (i + 1)), 'd').format('DD-MM-YYYY') + '">' + (theMonth.prevEnd - i) + '</li>');
+      }
+      for (i = 1; i <= theMonth.dayCount; i++) {
+         $(' .thismonth > ol', container).append('<li data-theday="' + moment(theMonth.monthMoment).add((i - 1), 'd').format('DD-MM-YYYY') + '">' + i + '</li>');
+      }
 
-        if (theMonth.nextVis < 7) {
-            for (i = 1; i <= theMonth.nextVis; i++) {
-             $(' .nextmonth > ol', container).append('<li data-date="'+moment(theMonth.monthMoment).add(1,'M').add((i-1),'d').format('DD-MM-YYYY')+'">'+i+'</li>');
-           }
-        }
-        return container;
+      if (theMonth.nextVis < 7) {
+         for (i = 1; i <= theMonth.nextVis; i++) {
+            $(' .nextmonth > ol', container).append('<li data-theday="' + moment(theMonth.monthMoment).add(1, 'M').add((i - 1), 'd').format('DD-MM-YYYY') + '">' + i + '</li>');
+         }
+      }
+      return container;
+   }
+
+   var direction = '';
+
+   function slideFromMonth(month) {
+      return $('.calContainer[data-themonth="' + month + '"]').data('slickIndex');
+   }
+
+   function slideFromMoment(moment) {
+      return $('.calContainer[data-themonth="' + moment.format("MM-YYYY") + '"]').data('slickIndex');
    }
 
    $(function() {
 
-      thisMonth = moment().format('MM-YYYY');
-      
-      $('.container').append(buildIt('02-2016', 'MM-YYYY'));
-      $('.container').append(buildIt('03-2016', 'MM-YYYY'));
-      $('.container').append(buildIt('04-2016', 'MM-YYYY'));
-      $('.container').append(buildIt('05-2016', 'MM-YYYY'));
+      thisMonth = moment(moment().format('MM-YYYY'), 'MM-YYYY');
 
-   $('.container').on('beforeChange', function(event, slick, currentSlide, nextSlide){
-      console.log(currentSlide, nextSlide);
-       //if going to the right add last child remove first child
-       $('.container').slick( 'slickAdd' , buildIt( moment('05-2016','MM-YYYY').add(1,'M').format('MM-YYYY') , 'MM-YYYY') );
-       //if going to the left add first child remove last child
-   });
+      for (a = 1; a < 120; a++) {
+         $('.container').prepend(buildIt(moment(thisMonth.format('MM-YYYY'), 'MM-YYYY').subtract(a, 'M')));
+      }
+
+      $('.container').append(buildIt(thisMonth));
+
+      for (a = 1; a < 120; a++) {
+         $('.container').append(buildIt(moment(thisMonth.format('MM-YYYY'), 'MM-YYYY').add(a, 'M')));
+      }
+
+      //Slides are movin!
+      $('.container').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+         if (currentSlide < nextSlide) {
+            direction = 'right';
+            $('.container').data('currentMonth', moment($('.container').data('currentMonth'), 'MM-YYYY').add(1, 'M').format('MM-YYYY'));
+         } else {
+            direction = 'left';
+            $('.container').data('currentMonth', moment($('.container').data('currentMonth'), 'MM-YYYY').subtract(1, 'M').format('MM-YYYY'));
+         }
+      });
 
       $('.container').slick({
          infinite: false,
          slidesToShow: 2,
-         slidesToScroll: 1,
-         initialSlide: 1
+         slidesToScroll: 1
       });
-    });
 
+      $('.container').slick('slickGoTo', slideFromMonth(moment().format('MM-YYYY')));
+
+      $( ".minimize" ).click(function() {
+         console.log($(this));
+        $(this).closest(".topcoat-list").children('.topcoat-list__container').slideToggle( "fast" );
+        if ($(this).children().text() !== 'listview'){
+         $(this).children().text('listview');
+      }
+      else{$(this).children().text('minus');}
+      });
+
+});
    </script>
 
 </head>
 
 <body>
+
+<div class="controlPanel">
+   <div class="topcoat-list">
+     <h3 class="topcoat-list__header">Study 1<span class="list-tools"><a title='Download to Calendar' class="icon"  href="#"><div class='icomatic'>calendar</div></a> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Minimize' class="icon minimize" href="#"><div class='icomatic'>minus</div></a> <a title='Remove Study' class="icon " href="#"><div class='icomatic'>cancel</div></a></span></h3>
+     <ul class="topcoat-list__container">
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient A <span class="list-tools"><div class='icomatic' style='color: #aff'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient B <span class="list-tools"><div class='icomatic' style='color: #faf'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient C <span class="list-tools"><div class='icomatic' style='color: #ffa'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient D <span class="list-tools"><div class='icomatic' style='color: #a66'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient E <span class="list-tools"><div class='icomatic' style='color: #6b6'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient F <span class="list-tools"><div class='icomatic' style='color: #22c'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient G <span class="list-tools"><div class='icomatic' style='color: #a35'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient H <span class="list-tools"><div class='icomatic' style='color: #a63'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>
+       <li class="topcoat-list__item">
+         <label class="topcoat-checkbox">
+           <input type="checkbox">
+           <div class="topcoat-checkbox__checkmark"></div>
+           Sample Patient I <span class="list-tools"><div class='icomatic' style='color: #a91'>roundedrectangle</div> <a title='Edit/Add' class="icon " href="#"><div class='icomatic'>pencil</div></a> <a title='Remove Record' class="icon " href="#"><div class='icomatic'>cancel</div></a></span> 
+         </label>
+       </li>             
+     </ul>
+   </div>
+</div>
 
 <div class="container">
 </div>
